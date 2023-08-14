@@ -87,4 +87,838 @@ git log --oneline (shows commit history will less data means 7 characters of com
 doesn't show metadata)
 71f310e (HEAD -> master) 1v
 
+.git ignore (to hide private data, which doesn't want to touch by others)
+------------
+its not a command, its a file name and won't move that data to SA or LR
+
+touch f2 f3
+cat > .gitignore
+f2
+ git status
+ouput:
+------
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   .gitignore
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .gitignore
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        f3
+
+git add f2
+output:
+-------
+The following paths are ignored by one of your .gitignore files:
+f2
+hint: Use -f if you really want to add them.
+hint: Turn this message off by running
+hint: "git config advice.addIgnoredFile false"
+
+git add f3
+ouput:
+------
+git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   .gitignore
+        new file:   f3
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .gitignore
+
+default branch is master, suggest developers to create their own branches
+to organize data in uncluttered way use branching
+
+Master
+under master loans
+and personal banking
+
+git branch (shows list of local branches)
+git branch -a (all local+remote)
+git branch_name (create a branch)
+git checkout branch_name (jump to other branch)
+git checkout -b branch_name (creation and jump to created branch happens in single go)
+git_merge (to merge created branches apart from master)
+git branch -d branch_name (delete merged branch, calls as soft delete)
+git branch -D branch_name (delete merged branch, calls as hard delete)
+
+git branch
+ git branch
+* master (* represents on which branch the control is present)
+git branch dev (the entire commit history will get copied to new branch)
+ git checkout dev
+output:
+-------
+Switched to branch 'dev'
+A       .gitignore
+A       f3
+
+git branch
+* dev
+  master
+touch f4
+git add .
+git checkout master
+git commit -m "2v"
+output:
+-------
+[master 6697767] 2v
+ 3 files changed, 1 insertion(+)
+ create mode 100644 .gitignore
+ create mode 100644 f3
+ create mode 100644 f4
+irrespective of branch where the file has been created or modified it doesn't matter,from where commit operation done,it
+will be visible on that and belongs to that branch only
+
+git checkout -b test (commits copied to it from parent branch means, on which branch we created)
+Switched to a new branch 'test'
+
+git status
+On branch test
+nothing to commit, working tree clean
+
+git log --oneline
+6697767 (HEAD -> test, master) 2v
+71f310e (dev) 1v
+
+touch f5
+git add .
+git commit -m "3v"
+git status
+
+git log --oneline
+6a2dd50 (HEAD -> test) 3v
+6697767 (master) 2v
+71f310e (dev) 1v
+
+git checkout master
+git merge test
+git branch -d test
+git branch -d dev
+git branch
+git log --oneline
+
+GitHub Account:
+---------------
+if alredy have sign in --> on top rigt click on + --> new repo--> name as git--> select public, if we select private
+for both upload and download credentials required--> click on create repo (on github cloud repo will get created)
+
+copy command from push an existing repo from the command line
+in gitbash CLI
+git remote add origin https://github.com/sairsm/git.git
+git push -u origin master
+asks for credentials--> it gets failed (instead of password ms introduced token)
+
+top right corner profile symbol-->settings--> left corner developer settings-->personal tokens-->generate new token-->
+classic token--> name as mytoken-->expiry none-->give all permisssions so select all, which are available--> generate token
+--> copy generated token and save it somewhere
+go to CLI and paste the token
+repo will be uploaded successfully, go and check in github (code checkin),code downloading from github called checkout
+
+git checkout
+------------
+git clone
+git pull
+git fetch
+pull and fetch only download modified files
+
+git clone
+---------
+its one time activity
+go to repo-->code-->copy url
+go to CLI 
+git clone paste the copied url (whether the code present or not, it will download entire code)
+ls
+cd git/
+ls
+git branch
+cd ..
+rm -rf git
+ls
+ 
+git fetch (shows the message that is already up to date),untill find any changes
+fetch and pull doesn't work go to repo in hub and modify one file--> commit changes and pass the commit message as 4v
+ouput:
+------
+remote: Enumerating objects: 11, done.
+remote: Counting objects: 100% (11/11), done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 9 (delta 3), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (9/9), 1.90 KiB | 5.00 KiB/s, done.
+From https://github.com/sairsm/git
+ * branch            HEAD       -> FETCH_HEAD
+
+(it downloads the modified file only and saved as seperate branch that is  remotes/origin/master 
+branch)
+git branch -a
+git checkout remotes/origin/master
+git merge remotes/origin/master
+cat f3 (in hub f3 has been changed so check the changed content reflected here or not)
+
+git pull: (merge automatically with master)
+----------
+in hub change f3 again--> name the commit as 5v
+cat f3
+git pull
+cat f3
+merging based on time stamp of commit
+
+git merge:
+----------
+create git_merge folder on desktop
+in CLI
+
+cd Desktop 
+cd git_merge/
+git init
+
+touch f1
+git add .
+git commit -m "1v"
+
+touch f2
+git add .
+git commit -m "2v"
+git log --oneline (latest commit called as head,jenkins download from head)
+61d4ea8 (HEAD -> master) 2v
+d05e24f 1v
+
+git branch test
+git checkout test
+git log --oneline (the commit history of 1v&2v got copied into test branch)
+
+touch f3
+git add .
+git commit -m "3v"
+
+touch f4
+git add .
+git commit -m "4v"
+git log --oneline
+4faf38d (HEAD -> test) 4v
+b043a3d 3v
+61d4ea8 (master) 2v
+d05e24f 1v
+
+git checkout master
+git log --oneline (shows 2 commits history only)
+
+touch f5
+git add .
+git commit -m "5v"
+
+touch f6
+git add .
+git commit -m "6v"
+git log --oneline
+ed7f93d (HEAD -> master) 6v
+47b9691 5v
+61d4ea8 2v
+d05e24f 1v
+
+git merge test
+Merge made by the 'ort' strategy.
+ f3 | 0
+ f4 | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f3
+ create mode 100644 f4
+
+git log --oneline
+599a229 (HEAD -> master) Merge branch 'test'
+ed7f93d 6v
+47b9691 5v
+4faf38d (test) 4v
+b043a3d 3v
+61d4ea8 2v
+d05e24f 1v
+
+
+finally the commit history is like above (merging based on timestamp of commit so 3v and 4v inserted in between them)
+ 
+git rebase (fast forward merge commits coming from branch will be treated as top most priority commits on master):
+---------------------------------
+create git_rebase folder on desktop
+in CLI
+cd git_rebase/
+git init
+
+touch f1
+git add .
+git commit -m "1v"
+
+touch f2
+git add .
+git commit -m "2v"
+git log --oneline (latest commit called as head,jenkins download from head)
+61d4ea8 (HEAD -> master) 2v
+d05e24f 1v
+
+git branch test
+git checkout test
+git log --oneline (the commit history of 1v&2v got copied into test branch)
+
+touch f3
+git add .
+git commit -m "3v"
+
+touch f4
+git add .
+git commit -m "4v"
+git log --oneline
+4faf38d (HEAD -> test) 4v
+b043a3d 3v
+61d4ea8 (master) 2v
+d05e24f 1v
+
+git checkout master
+git log --oneline (shows 2 commits history only)
+
+touch f5
+git add .
+git commit -m "5v"
+
+touch f6
+git add .
+git commit -m "6v"
+git log --oneline
+ed7f93d (HEAD -> master) 6v
+47b9691 5v
+61d4ea8 2v
+d05e24f 1v
+
+git checkout test
+git rebase master
+Successfully rebased and updated refs/heads/test.
+
+git checkout master
+git merge test
+Updating dab359b..060a6c1
+Fast-forward
+ f3 | 0
+ f4 | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f3
+ create mode 100644 f4
+
+git log --oneline
+060a6c1 (HEAD -> master, test) 4v
+810668c 3v
+dab359b 6v
+a5ccb8f 5v
+4c9e6dd 2v
+5200605 1v
+
+cherry picking (allows us to pick up commits selectively)
+----------------
+create git_rebase folder on desktop
+in CLI
+cd Desktop
+cd git_cherry/
+git init
+
+touch f1
+git add .
+git commit -m "1v"
+
+git checkout -b test
+
+touch f2
+git add .
+git commit -m "2v"
+
+touch f3
+git add .
+git commit -m "3v"
+
+touch f4
+git add .
+git commit -m "4v"
+
+touch f5
+git add .
+git commit -m "5v"
+
+touch f6
+git add .
+git commit -m "6v"
+
+touch f7
+git add .
+git commit -m "7v"
+
+git log --oneline
+b665e7d (HEAD -> test) 7v
+4631579 6v
+492eb52 5v
+4c2b70c 4v
+4a859ed 3v
+efc1a3b 2v
+1e422ce (master) 1v
+
+git checkout master
+git log --oneline
+1e422ce (HEAD -> master) 1v
+
+git cherry-pick d15d98b a6a3629
+git cherry-pick 4a859ed 4631579
+[master 0d5e57f] 3v
+ Date: Sun Apr 2 13:01:31 2023 +0530
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f3
+[master f6b88be] 6v
+ Date: Sun Apr 2 13:01:34 2023 +0530
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f6
+
+git log --oneline
+f6b88be (HEAD -> master) 6v
+0d5e57f 3v
+1e422ce 1v
+
+git reset (can modify head point)
+soft
+hard and 
+mixed
+
+cd Desktop
+cd git_reset
+git init
+
+cat > f1
+one
+ctrl+d
+
+git add .
+git commit -m "1v"
+
+cat >> f1
+two
+ctrl+d
+
+cat >> f1
+three
+ctrl+d
+
+git log --oneline
+dae5bc1 (HEAD -> master) 3v
+07f4695 2v
+3c501e1 1v
+
+git reset --hard 3c501e1 
+HEAD is now at 3c501e1 1v 
+open the file f1 and check, the data is only one coz control at 1v
+
+git log --oneline
+3c501e1 (HEAD -> master) 1v
+
+git reflog
+3c501e1 (HEAD -> master) HEAD@{0}: reset: moving to 3c501e1
+dae5bc1 HEAD@{1}: commit: 3v
+07f4695 HEAD@{2}: commit: 2v
+3c501e1 (HEAD -> master) HEAD@{3}: commit (initial): 1v
+
+cat > f2
+jan
+
+touch f3
+git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        f2
+        f3
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+git add .
+git commit -m "4v"
+ 
+cat >> f3
+sun
+mon
+ctrl+d
+
+touch f4
+rm f2
+
+git log --oneline
+git status
+git add .
+git commit -m "5v"
+
+open files and check the data beacuase the head is pointing to latest commit
+
+git reset --hard commit_id (check the according to the commit_id)
+
+soft and Mixed reset: (soft reset helps in adding files to existing commit without creating a new commit, mixed reset helps
+in mdify the existing files without creating a new commit)
+---------------------
+
+untracked/modified files		Indexed files				committed files
+------------------------		--------------				----------------
+f1 one					f1 one					f1 one 1v
+f1 one,two				f1 one,two				f1 one,two 2v
+f1 one,two,three			f1 one,two,three			f1 one,two,three 3v
+
+soft reset--> one step back to 3v and head pointing to 2v
+mixed reset --> two step back to 3v and head pointing to 2v
+hard reset 3 step back to 3v means data at 2v and head also pointing at 2v
+
+git reset --soft commit_id of 2v
+git status 
+git reset --hard latest_commit_id of 1v
+git log --oneline
+git reset --mixed commit_id of 2v
+cat f1
+
+Amend (can achieve the functionality of soft and mixed reset)
+------
+On surface level we can't see but it doesn't amend existing commit,it creates new commit_id, the older commit_id becomes 
+orphan commit,soft and mixed reset also do the same)
+
+touch f1
+git add .
+git commit -m "1v"
+
+touch f2
+git add .
+git commit -m "2v"
+
+touch f3
+git add .
+git commit -m "3v"
+
+git log --oneline
+6b0431f (HEAD -> master) 3v
+fe1b8aa 2v
+c911284 1v
+
+touch f4
+git add .
+
+git commit --amend -m "3v"
+[master 44f1cf3] 3v
+ Date: Sun Apr 2 14:34:17 2023 +0530
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f3
+ create mode 100644 f4
+
+git log --oneline
+44f1cf3 (HEAD -> master) 3v
+fe1b8aa 2v
+c911284 1v
+
+cat > f1
+one
+two
+ctrl+d
+
+git status
+git add .
+git commit --amend -m "3v"
+ git log --oneline
+43df87f (HEAD -> master) 3v
+fe1b8aa 2v
+c911284 1v
+
+stash:
+------- 
+like .gitignore but more powerful,and it also works on area not on files,once we apply stash on any area ex:
+untrack or stagging further git commands can't touch those area and the files in that area
+
+.gitignore does permanent hiding
+ex: if a team working on banking application, currently working on loans sprint, but client feels that personal banking 
+is the highest priority service so asks our team to stop loans and starts working on personal banking so we can stash loans
+after completion of personal banking again starts working on loans
+
+to stash all files in the staging area
+git stash
+
+to stash all the files in the stagging area and untracked section
+git stash -u
+
+to stash all the files in the stagging area and untracked section and .gitignore
+git stash -a
+
+to see the list of stashes
+git stash list
+
+to unstash a latest stash
+git stash pop
+
+to unstash an older stash
+git stash pop stash@{stash no}
+
+git log --oneline
+43df87f (HEAD -> master) 3v
+fe1b8aa 2v
+c911284 1v
+
+touch l1 l2
+git add .
+git stash
+Saved working directory and index state WIP on master: 43df87f 3v
+
+git status
+On branch master
+nothing to commit, working tree clean
+
+touch p1 p2 (starts working on personal banking)
+git add .
+git commit -m "4v"
+[master f26e0f4] 4v
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 p1
+ create mode 100644 p2 
+
+git status
+On branch master
+nothing to commit, working tree clean
+
+git stash pop
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   l1
+        new file:   l2
+
+Dropped refs/stash@{0} (f6c628125f43ce84b0490f361741a4b6eb68d560)
+
+git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   l1
+        new file:   l2
+
+git commit -m "5v"
+[master ceb2c99] 5v
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 l1
+ create mode 100644 l2
+
+git status
+On branch master
+nothing to commit, working tree clean
+
+touch x1 x2
+git add .
+git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   x1
+        new file:   x2
+
+git stash
+touch z1 z2 z3 z4
+git add z1 z2
+git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   x1
+        new file:   x2
+        new file:   z1
+        new file:   z2
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        z3
+        z4
+
+git stash -u
+Saved working directory and index state WIP on master: ceb2c99 5v
+
+git status
+On branch master
+nothing to commit, working tree clean
+
+git stash list
+stash@{0}: WIP on master: ceb2c99 5v
+stash@{1}: WIP on master: ceb2c99 5v
+
+git stash pop stash@{0}
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   x1
+        new file:   x2
+        new file:   z1
+        new file:   z2
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        z3
+        z4
+
+Dropped stash@{0} (2e7747b8d882740885c421548fd99ac93044bff0)
+
+touch h1 h1 h3
+cat > .gitignore
+h1 h2 h3
+
+ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   x1
+        new file:   x2
+        new file:   z1
+        new file:   z2
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        h1
+        h2
+        h3
+        z3
+        z4
+
+git stash -a
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+Saved working directory and index state WIP on master: ceb2c99 5v
+
+git status
+On branch master
+nothing to commit, working tree clean
+
+squash (merge commits except first commit)
+------------------------------------------
+
+touch f1
+git add .
+git commit -m "1v"
+
+touch f2
+git add .
+git commit -m "2v"	
+
+touch f3
+git add .
+git commit -m "3v"
+
+touch f4
+git add .
+git commit -m "4v"	
+
+touch f5
+git add .
+git commit -m "5v"
+
+touch f6
+git add .
+git commit -m "6v"	
+
+git log --oneline
+7449d7d (HEAD -> master) 6v
+55b6c5f 5v
+f39a029 4v
+bd10dfc 3v
+4af8d63 2v
+e4ff3a1 1v
+
+git rebase -i HEAD~5 nuner shuld be less than the no.of available coomits coz first commit can't touch (copy 2v commit_id 
+from top to bottom then it would be latest)
+pick b9576cc 3v
+pick e864732 4v
+pick 307d7cd 5v
+pick 873cf24 6v
+pick 0a23d5e 2v
+Successfully rebased and updated refs/heads/master.
+
+git log --oneline
+0a23d5e (HEAD -> master) 2v
+873cf24 6v
+307d7cd 5v
+e864732 4v
+b9576cc 3v
+e4ff3a1 1v
+
+git rebase -i HEAD~5
+opens in editor
+pick b9576cc 3v
+pick e864732 4v
+pick 307d7cd 5v (2v and 6v merged with 5v by adding squash intead of pick for those 2 commits)
+squash 873cf24 6v
+squash 0a23d5e 2v
+
+[detached HEAD ae0784d] 5v
+ Date: Sun Apr 2 20:37:30 2023 +0530
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f2
+ create mode 100644 f5
+ create mode 100644 f6
+Successfully rebased and updated refs/heads/master.
+
+git log --oneline
+ae0784d (HEAD -> master) 5v
+e864732 4v
+b9576cc 3v
+e4ff3a1 1v
+
+tags (nothing but bookmarks)
+-----------------------------
+touch f7
+git add .
+git commit -m "7v"
+
+touch f8
+git add .
+git commit -m "8v"
+
+touch f9
+git add .
+git commit -m "9v"
+
+git log --oneline
+e204e34 (HEAD -> master) 9v
+ac24869 8v
+84a29c7 7v
+ae0784d 5v
+e864732 4v
+b9576cc 3v
+e4ff3a1 1v
+
+git tag Release-2.0
+
+git log --oneline
+e204e34 (HEAD -> master, tag: Release-2.0) 9v
+ac24869 8v
+84a29c7 7v
+ae0784d 5v
+e864732 4v
+b9576cc 3v
+e4ff3a1 1v
+
+git log --oneline
+e204e34 (HEAD -> master, tag: Release-2.0) 9v
+ac24869 8v
+84a29c7 7v
+ae0784d 5v
+e864732 4v
+b9576cc 3v
+e4ff3a1 1v
+
+git tag Release-1.0 e864732
+
+git log --oneline
+e204e34 (HEAD -> master, tag: Release-2.0) 9v
+ac24869 8v
+84a29c7 7v
+ae0784d 5v
+e864732 (tag: Release-1.0) 4v
+b9576cc 3v
+e4ff3a1 1v
 
