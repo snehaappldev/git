@@ -1,0 +1,90 @@
+GIT(version control tool)
+===
+can jump between any any version
+
+vcs/source code management/code repo(25)
+----------------------------------------- 
+
+dev1(10) dev2(5) dev3(10) .......dev25
+
+---------------------------------------
+
+group of people working on same application but no.of people from dev are working for, if worked till login from there,
+another dev will work, we can access all developed data by every developer
+
+one task completed, it will be uploaded to repo, but while downloading we can get all code by total dev
+RCA(root cause analysis) also possible
+it has the ability to preserve the older and newer data
+acts as code repo,vresion control system,track of making changes by whom or at what time
+
+2 types of vcs
+---------------
+centralised version control (svn,subversion) Integration and version control happens in remote repo
+distributed version control (GIT) version control happens in each individual local repo
+
+before uploading it to remote repo can do vc in LR(local repo) so can do R&D
+copy of remote repo also available in LR, if RR crashes, we can have a copy of that
+
+developer (developed code)-->local repo-->remote repo
+later git installation, before firing git commands we need to configure username and email
+
+WD(untracked files like in RAM)--> SA (indexed files)--> LR(committed files like hard disk)
+
+create folder with the name git on desktop
+open gitbash CLI
+git config --global user.name "sairsm"
+git config --global user.email "sairsmap@gmail.com"
+cd Desktop/git
+pwd
+git status (won't work coz git not initialized)
+git init (it create .git hidden folder)
+git status
+output
+-------
+$ git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+On branch master
+
+git status
+output
+------
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        f1
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+git add file_name (single file to be moved to staging area)
+git add . (moves all untracked files to stagging area)
+git rm --cached f1 (calling back the from stagging area to WD)
+git status
+git reset f1 (same as rm --cached)
+git status
+
+git commit -m "1v" (the files which are in stagging area has been pushed to local repo)
+[master (root-commit) 71f310e] 1v
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f1
+
+git status
+On branch master
+nothing to commit, working tree clean
+
+git log (shows commit history along with commit_id,who committed, date of commit)
+commit 71f310e19604710efc49d9511c89c0c4c833118d (HEAD -> master)
+Author: sairsm <sairsmap@gmail.com>
+Date:   Sat Apr 1 19:25:47 2023 +0530
+
+    1v
+
+git log --oneline (shows commit history will less data means 7 characters of commit id and message of commit id
+doesn't show metadata)
+71f310e (HEAD -> master) 1v
+
+
